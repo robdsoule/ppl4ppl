@@ -11,7 +11,9 @@ App = React.createClass({
       }).fetch(),
       exercises: _.uniq(Exercises.find({}, {
         sort: {name: 1}, fields: {name: true}
-      }).fetch().map((x) => x.name), true)
+      }).fetch().map((x) => x.name), true),
+
+      user: Meteor.userId()
     };
   },
 
@@ -31,7 +33,7 @@ App = React.createClass({
   },
 
   render: function() {
-    if (!Meteor.userId()) {
+    if (!this.data.user) {
       return (
         <div className="app-container">
           <div className="page-header">
@@ -54,24 +56,25 @@ App = React.createClass({
           </div>
         </div>
       );
-    }
-    return (
-      <div className="app-container">
-        <div className="page-header">
-          <Header data={ this.data.exercises }/>
-        </div>
-        <div className="container" id="main">
-          <div className="row">
-            <div className="col-lg-offset-2 col-lg-8">
-              <RepForm data={ this.props.exerciseName } />
-              <RepList data={ this.data.reps } />
-            </div>
-            <div className="col-lg-offset-2 col-lg-8">
-              <BarChart data={ this.mapData() } width="720" height="320" />
+    } else {
+      return (
+        <div className="app-container">
+          <div className="page-header">
+            <Header data={ this.data.exercises }/>
+          </div>
+          <div className="container" id="main">
+            <div className="row">
+              <div className="col-lg-offset-2 col-lg-8">
+                <RepForm data={ this.props.exerciseName } />
+                <RepList data={ this.data.reps } />
+              </div>
+              <div className="col-lg-offset-2 col-lg-8">
+                <BarChart data={ this.mapData() } width="720" height="320" />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 });
