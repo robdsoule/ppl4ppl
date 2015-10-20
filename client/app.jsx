@@ -31,6 +31,30 @@ App = React.createClass({
   },
 
   render: function() {
+    if (!Meteor.userId()) {
+      return (
+        <div className="app-container">
+          <div className="page-header">
+            <Header data={ this.data.exercises }/>
+          </div>
+          <div className="container" id="main">
+            <div className="row">
+              <div className="col-lg-offset-2 col-lg-8">
+                <div className="panel panel-default">
+                  <div className="panel-heading">
+                    <h3 className="panel-title"> LOGIN
+                    </h3>
+                  </div>
+                  <div className="panel-body">
+                    <p>Login to start recording</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="app-container">
         <div className="page-header">
