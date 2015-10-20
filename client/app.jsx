@@ -16,13 +16,11 @@ App = React.createClass({
     var data = [];
 
     this.data.reps.map(function(d, i) {
-      console.log('D', d);
-      console.log('I', i);
       data[i] = {
         totalWorkload: d.totalWorkload,
         numReps: d.numReps,
         weight: d.weight,
-        date: moment(d.date).format("MM/DD/YY")
+        date: moment(d.date).format("MM/DD")
       };
     });
 
@@ -37,12 +35,12 @@ App = React.createClass({
         </div>
         <div className="container">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-lg-offset-2 col-lg-8">
               <RepForm />
               <RepList data={ this.data.reps } />
             </div>
-            <div className="col-md-offset-2 col-md-6">
-              <BarChart data={ this.mapData() } width="480" height="320" />
+            <div className="col-lg-offset-2 col-lg-8">
+              <BarChart data={ this.mapData() } width="720" height="320" />
             </div>
           </div>
         </div>

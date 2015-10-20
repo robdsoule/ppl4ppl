@@ -74,6 +74,8 @@ BarChart = React.createClass({
           return d.totalWorkload;
         });
 
+    workLoadLabel.exit()
+        .remove();
 
     var weightLabel = svg.selectAll(".weightLabel").data(data);
     weightLabel.enter()
@@ -95,6 +97,9 @@ BarChart = React.createClass({
           return d.weight;
         });
 
+    weightLabel.exit()
+        .remove();
+
     var repLabel = svg.selectAll(".repLabel").data(data);
     repLabel.enter()
         .append("text")
@@ -115,6 +120,9 @@ BarChart = React.createClass({
           return d.numReps;
         });
 
+    repLabel.exit()
+        .remove();
+
     var xLabel = svg.selectAll(".xLabel").data(data);
     xLabel.enter()
         .append("text")
@@ -130,6 +138,9 @@ BarChart = React.createClass({
         .attr("y", function(d, i) {
           return props.height - 5;
         });
+
+    xLabel.exit()
+        .remove();
   },
 
   render() {
