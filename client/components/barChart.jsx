@@ -55,7 +55,6 @@ BarChart = React.createClass({
     bars.enter()
         .append("rect")
         .attr("class", "bars");
-        // .attr("fill", "url(#gradient)");
 
     bars.transition()
         .duration(1000)
