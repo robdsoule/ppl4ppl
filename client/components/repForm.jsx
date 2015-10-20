@@ -18,7 +18,7 @@ RepForm = React.createClass({
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">{this.props.data} - Rep Form</h3>
+          <h3 className="panel-title">Squats - Rep Form</h3>
         </div>
         <div className="panel-body">
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
