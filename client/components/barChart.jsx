@@ -16,14 +16,17 @@ BarChart = React.createClass({
   getDefaultProps() {
     return {
       width: 640,
-      height: 480
+      height: 480,
+      max: 480
     };
   },
 
   updateChart(props) {
     var data = props.data;
     var max = _.max(_.pluck(data, "totalWorkload"));
-
+    if (max < 0) {
+      max = props.max;
+    }
     // set scale
     var yScale = d3.scale.linear()
                .domain([0, max])
@@ -32,12 +35,27 @@ BarChart = React.createClass({
                .domain(d3.range(data.length))
                .rangeRoundBands([0, props.width], 0.05);
 
-
     var svg = d3.select("svg");
+    svg.append("linearGradient")
+        .attr("id", "color-gradient")
+        .attr("gradientUnits", "userSpaceOnUse")
+        .attr("x1", 0).attr("y1", yScale(max * 0.2))
+        .attr("x2", 0).attr("y2", yScale(max * 0.8))
+        .selectAll("stop")
+        .data([
+          {offset: "0%", color: "#5192f5"},
+          {offset: "30%", color: "#5e9af4"},
+          {offset: "100%", color: "#315893"}
+        ])
+        .enter().append("stop")
+        .attr("offset", function(d) { return d.offset; })
+        .attr("stop-color", function(d) { return d.color; });
+
     var bars = svg.selectAll("rect").data(data);
     bars.enter()
         .append("rect")
-        .attr("fill", "blue");
+        .attr("class", "bars");
+        // .attr("fill", "url(#gradient)");
 
     bars.transition()
         .duration(1000)
@@ -59,7 +77,7 @@ BarChart = React.createClass({
     workLoadLabel.enter()
         .append("text")
         .attr("class", "workLoadLabel")
-        .style("font-weight", "bold")
+        .attr("fill", "#aaa")
         .attr("text-anchor", "middle");
 
     workLoadLabel.transition()
@@ -81,8 +99,7 @@ BarChart = React.createClass({
     weightLabel.enter()
         .append("text")
         .attr("class", "weightLabel")
-        .attr("fill", "#aaa")
-        .style("font-weight", "bold")
+        .attr("fill", "#444")
         .attr("text-anchor", "middle");
 
     weightLabel.transition()
@@ -105,7 +122,6 @@ BarChart = React.createClass({
         .append("text")
         .attr("class", "repLabel")
         .attr("fill", "#fff")
-        .style("font-weight", "bold")
         .attr("text-anchor", "middle");
 
         repLabel.transition()
@@ -126,7 +142,8 @@ BarChart = React.createClass({
     var xLabel = svg.selectAll(".xLabel").data(data);
     xLabel.enter()
         .append("text")
-        .attr("class", "xLabel");
+        .attr("class", "xLabel")
+        .attr("fill", "#aaa");
 
     xLabel.text(function(d, i) {
           return d.date;

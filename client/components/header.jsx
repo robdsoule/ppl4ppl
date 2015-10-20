@@ -1,9 +1,15 @@
 Header = React.createClass({
   getMeteorState: function() {},
 
+  renderExerciseList() {
+    return this.props.data.map(function(name) {
+      return <ExerciseLink key={name} name={name} />;
+    });
+  },
+
   render: function() {
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
           {/* Brand and toggle get grouped for better mobile display */}
           <div className="navbar-header">
@@ -13,22 +19,16 @@ Header = React.createClass({
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <a className="navbar-brand" href="/">PPL-4-Ppl</a>
+            <a className="navbar-brand" href="/">PPL</a>
           </div>
           {/* Collect the nav links, forms, and other content for toggling */}
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              <li><a href="/exercises">Exercises</a></li>
+              <li><a href="/">Home</a></li>
               <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret" /></a>
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Exercises <span className="caret" /></a>
                 <ul className="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" className="divider" />
-                  <li><a href="#">Separated link</a></li>
-                  <li role="separator" className="divider" />
-                  <li><a href="#">One more separated link</a></li>
+                  { this.renderExerciseList() }
                 </ul>
               </li>
             </ul>

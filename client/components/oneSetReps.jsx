@@ -9,8 +9,8 @@ OneSetReps = React.createClass({
   render() {
     var date = moment(this.props.reps.date).format("MM/DD/YY");
     return (
-      <li onClick={ this.handleClick }>
-        Date: {date} -- Reps: {this.props.reps.numReps} -- Weight: {this.props.reps.weight} -- WorkLoad: {this.props.reps.totalWorkload}
+      <li className="list-group-item singleSet" onClick={ this.handleClick }>
+        {date} - {this.props.reps.numReps} Reps of {this.props.reps.weight}lbs for a total of {this.props.reps.totalWorkload}lbs
       </li>
     );
   }

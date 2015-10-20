@@ -1,7 +1,7 @@
 RepList = React.createClass({
   renderReps() {
     return this.props.data.map(function(reps) {
-      return <OneSetReps reps={reps} />;
+      return <OneSetReps key={reps._id} reps={reps} />;
     });
   },
 
@@ -14,7 +14,7 @@ RepList = React.createClass({
           </h3>
         </div>
         <div className="panel-body">
-          <ul>
+          <ul className="list-group">
             { this.renderReps() }
           </ul>
         </div>

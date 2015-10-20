@@ -8,7 +8,10 @@ App = React.createClass({
           date: -1,
           created_at: -1
         }
-      }).fetch()
+      }).fetch(),
+      exercises: _.uniq(Exercises.find({}, {
+        sort: {name: 1}, fields: {name: true}
+      }).fetch().map((x) => x.name), true)
     };
   },
 
@@ -29,14 +32,14 @@ App = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="app-container">
         <div className="page-header">
-          <Header />
+          <Header data={ this.data.exercises }/>
         </div>
-        <div className="container">
+        <div className="container" id="main">
           <div className="row">
             <div className="col-lg-offset-2 col-lg-8">
-              <RepForm />
+              <RepForm data={ this.props.exerciseName } />
               <RepList data={ this.data.reps } />
             </div>
             <div className="col-lg-offset-2 col-lg-8">

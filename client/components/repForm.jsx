@@ -5,7 +5,7 @@ RepForm = React.createClass({
     var repWeight = React.findDOMNode(this.refs.repWeight);
     var repDate = React.findDOMNode(this.refs.repDate);
 
-    Meteor.call("addSet", numReps.value, repWeight.value, moment(repDate.value).toDate(),
+    Meteor.call("addSet", numReps.value, repWeight.value, moment(repDate.value).toDate(), this.props.data,
       function(err, res) {
         if (err) { alert(err.reason); }
       });
@@ -18,7 +18,7 @@ RepForm = React.createClass({
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">Rep History</h3>
+          <h3 className="panel-title">{this.props.data} - Rep Form</h3>
         </div>
         <div className="panel-body">
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
@@ -43,7 +43,7 @@ RepForm = React.createClass({
 
             <div className="form-group">
               <div className="col-lg-10">
-                <button type="submit" className="btn btn-block">Record Reps</button>
+                <button type="submit" className="btn btn-primary btn-block">Record Reps</button>
               </div>
             </div>
           </form>
