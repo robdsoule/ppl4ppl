@@ -3,16 +3,17 @@ App = React.createClass({
 
   getMeteorData() {
     return {
-      reps: Exercises.find({}).fetch()
+      reps: Exercises.find({}, {
+        sort: {
+          date: -1,
+          created_at: -1
+        }
+      }).fetch()
     };
   },
 
   mapData: function() {
-    var data = [
-      { totalWorkload: 0, xLabel: 0},
-      { totalWorkload: 0, xLabel: 1},
-      { totalWorkload: 0, xLabel: 2}
-    ];
+    var data = [];
 
     this.data.reps.map(function(d, i) {
       console.log('D', d);
@@ -20,7 +21,8 @@ App = React.createClass({
       data[i] = {
         totalWorkload: d.totalWorkload,
         numReps: d.numReps,
-        weight: d.weight
+        weight: d.weight,
+        date: moment(d.date).format("MM/DD/YY")
       };
     });
 
@@ -48,6 +50,3 @@ App = React.createClass({
     );
   }
 });
-// 30-7
-// 210, 360
-// 360/7 = 

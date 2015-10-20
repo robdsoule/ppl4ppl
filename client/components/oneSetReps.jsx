@@ -9,7 +9,9 @@ OneSetReps = React.createClass({
   render() {
     var date = moment(this.props.reps.date).format("MM/DD/YY");
     return (
-      <li onClick={ this.handleClick }> Date: {date} -- Reps: {this.props.reps.numReps} -- Weight: {this.props.reps.weight} -- WorkLoad: {this.props.reps.totalWorkload}</li>
+      <li onClick={ this.handleClick }>
+        Date: {date} -- Reps: {this.props.reps.numReps} -- Weight: {this.props.reps.weight} -- WorkLoad: {this.props.reps.totalWorkload}
+      </li>
     );
   }
 });
